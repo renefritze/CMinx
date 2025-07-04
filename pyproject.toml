@@ -13,7 +13,7 @@
 # limitations under the License.
 
 [build-system]
-requires = ["setuptools>=41", "wheel", "setuptools-git-versioning"]
+requires = ["setuptools>=80 ", "wheel", "setuptools-git-versioning"]
 build-backend = "setuptools.build_meta"
 
 
@@ -22,7 +22,7 @@ name = "CMinx"
 dynamic = ["version"]
 description = "Documentation Generator for the CMake Language"
 readme = "README.rst"
-license = {file = "LICENSE"}
+license-files = ["LICENSE"]
 authors = [{name = "CMakePP"}]
 keywords = ["CMake", "Documentation"]
 classifiers = ["Development Status :: 5 - Production/Stable",
