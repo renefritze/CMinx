@@ -49,6 +49,6 @@ jobs:
         run: uv run --frozen twine check dist/*
       - name: Test built package
         run: |
-          uv pip install dist/*.tar.gz
+          uv pip install  dist/*.tar.gz
           cd tests
           uv run python -B test_all.py  
