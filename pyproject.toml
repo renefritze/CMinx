@@ -21,6 +21,7 @@ build-backend = "setuptools.build_meta"
 name = "CMinx"
 dynamic = ["version"]
 description = "Documentation Generator for the CMake Language"
+requires-python = ">=3.9"
 readme = "README.rst"
 license = {file = "LICENSE"}
 authors = [{name = "CMakePP"}]
@@ -36,7 +37,8 @@ urls = {"GitHub" = "https://github.com/CMakePP/CMinx"}
 scripts = {"cminx" = "cminx:main"}
 dependencies = ["antlr4-python3-runtime==4.7.2",
     "confuse>=1.7",
-    "pathspec>=0.9.0"
+    "pathspec>=0.9.0",
+    "setuptools>=41",
 ]
 
 
@@ -54,3 +56,15 @@ include-package-data = true
 enabled = true
 dev_template = "{tag}"
 dirty_template = "{tag}"
+
+[dependency-groups]
+dev = [
+    "build>=1.2.2.post1",
+    "packaging>=24.2",
+    "pytest-cov>=6.2.1",
+    "pytest>=8.4.1",
+    "twine>=6.1.0",
+    "wheel>=0.45.1",
+    "sphinx>=7.4.7",
+    "sphinx-rtd-theme>=3.0.2",
+]

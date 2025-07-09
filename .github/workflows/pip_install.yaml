@@ -28,27 +28,25 @@ jobs:
 
     strategy:
       matrix:
-        python_version: ['3.8.13', '3.9.13', '3.10.5', '3.11.2']
+        python_version: ['3.9', '3.10', '3.11']
+      fail-fast: false
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v4
+      - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python_version }}
-      - name: Build
+      - name: Install dependencies
         run: |
-          python3 --version
-          python3 -m venv virt_env
-          source virt_env/bin/activate
-          pip3 install -e .
-          pip3 install -e .[testing]
+          # above step only installs the uv{,x} binaries and sets `UV_PYTHON` in env. 
+          uv python install
+          uv sync --frozen
       - name: Test
         run: |
-          source virt_env/bin/activate
           cd tests
-          pytest --cov=../src/cminx/ --cov-report=xml
+          uv run pytest --cov=../src/cminx/ --cov-report=xml
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:

@@ -18,27 +18,23 @@ on:
   push:
     branches:
       - master
+  pull_request:
 
 jobs:
   Build-Documentation:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-python@v4
+      - uses: astral-sh/setup-uv@v6
         with:
-          python-version: '3.10'
+          python-version: ${{ matrix.python_version }}      
       - name: Build Docs
         run: |
-          python3 -m venv virt_env
-          source virt_env/bin/activate
-          pip3 install wheel
-          pip3 install .
-          cd docs
-          pip3 install -r requirements.txt
-          make html
+          uv run sphinx-build -b html docs/source docs/build/html
       - name: Deploy to GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
