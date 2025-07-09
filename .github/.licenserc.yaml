@@ -30,6 +30,8 @@ header:
     - CITATION.cff
     - setup.cfg
     - .zenodo.json
+    - uv.lock
+    - .python-version
 
 
   comment: never
